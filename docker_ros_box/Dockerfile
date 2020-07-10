@@ -81,9 +81,7 @@ ENV ROS_DISTRO melodic
 ENV PATH /usr/local/nvidia/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
-
-
-#COPY entrypoint.sh /home/entrypoint.sh
-#ENTRYPOINT ["/bin/bash", "/home/entrypoint.sh"]
-#CMD ["echo hello"]
+COPY entrypoint.sh /home/entrypoint.sh
+ENTRYPOINT ["/home/entrypoint.sh"]
+CMD ["bash"]
 

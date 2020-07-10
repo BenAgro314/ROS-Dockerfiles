@@ -47,17 +47,6 @@ RUN apt-get install ros-noetic-ros-control -y --no-install-recommends
 RUN apt-get install ros-noetic-tf2* -y --no-install-recommends
 RUN apt-get install ros-noetic-navigation* -y --no-install-recommends
 RUN apt-get install ros-noetic-gazebo* -y --no-install-recommends
-# RUN apt-get install -y gnome-core --no-install-recommends
-# RUN apt-get install -y mesa-utils --no-install-recommends
-# RUN apt-get install psmisc -y --no-install-recommends
-
-# RUN sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/gazebo-stable.list'
-# RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys D2486D2DD83DB69272AFE98867170598AF249743
-# RUN apt update
-# RUN apt upgrade -y --no-install-recommends
-
-
-
 
 RUN groupadd -g 1090 myhal_sim
 RUN groupadd -g 1001 raid
@@ -65,12 +54,7 @@ RUN useradd -ms /bin/bash -u 1085 bag
 RUN adduser bag myhal_sim
 RUN adduser bag raid
 RUN apt-get install python3-tk -y --no-install-recommends
-# RUN apt install python3-catkin-tools
 WORKDIR /home/bag/catkin_ws
-
-# install required packages from source 
-
-
 
 
 USER bag
@@ -86,9 +70,7 @@ ENV ROS_DISTRO noetic
 ENV PATH /usr/local/nvidia/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
-
-
-#COPY entrypoint.sh /home/entrypoint.sh
-#ENTRYPOINT ["/bin/bash", "/home/entrypoint.sh"]
-#CMD ["echo hello"]
+COPY entrypoint.sh /home/entrypoint.sh
+ENTRYPOINT ["/home/entrypoint.sh"]
+CMD ["bash"]
 
