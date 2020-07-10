@@ -6,8 +6,8 @@ RUN DEBIAN_FRONTEND=noninteractive
 
 RUN apt update
 RUN apt upgrade -y --no-install-recommends
-RUN apt-get update
-RUN apt-get install gcc g++ python3 python3-pip python3-dev vtk6 -y --no-install-recommends
+RUN apt update
+RUN apt-get install gcc g++ python python-pip -y --no-install-recommends
 RUN apt-get install gedit -y --no-install-recommends
 RUN apt-get update
 RUN apt-get install firefox -y --no-install-recommends
@@ -15,17 +15,20 @@ RUN apt-get install wget -y --no-install-recommends
 RUN apt-get install git -y --no-install-recommends
 RUN apt-get install xvfb -y --no-install-recommends   
 RUN apt-get install vim -y --no-install-recommends
-RUN pip3 install --upgrade pip
-RUN pip3 install setuptools
-RUN pip3 install numpy scikit-learn matplotlib PyYAML
-RUN pip3 install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html
-RUN pip3 install PyQt5
-RUN apt install pyqt5-dev-tools pyqt5-dev -y --no-install-recommends
+RUN pip install --upgrade pip
+RUN pip install setuptools
+RUN pip install numpy matplotlib 
 
 RUN apt update
 RUN apt install curl gnupg2 lsb-release -y --no-install-recommends
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 RUN curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | apt-key add -
+
+RUN echo 'Etc/UTC' > /etc/timezone && \
+    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+    apt-get update && \
+    apt-get install -q -y --no-install-recommends tzdata && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN apt update
 RUN apt install ros-melodic-desktop-full -y --no-install-recommends
@@ -68,6 +71,7 @@ RUN apt upgrade -y --no-install-recommends
 
 RUN apt-get install psmisc -y --no-install-recommends
 RUN apt-get install ros-melodic-ros-numpy -y --no-install-recommends
+RUN pip install plyfile
 RUN groupadd -g 1090 myhal_sim
 RUN groupadd -g 1001 raid
 RUN useradd -ms /bin/bash -u 1085 bag
