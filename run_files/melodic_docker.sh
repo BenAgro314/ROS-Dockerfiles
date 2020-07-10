@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo ""
-echo "Running ros-melodic docker. Remember you can set ROSPORT"
+echo "Running ros-melodic docker. Remember you can set ROSPORT to a custom value"
 echo ""
 
 if [ -n "$1" ]; then
@@ -23,14 +23,14 @@ if [[ -z "$ROSPORT" ]]; then
     export ROSPORT=$(($RANDOM%30000+1101))
 fi
 
-echo "ROSPORT= $rosport"
+echo "ROSPORT=$rosport"
 gazport=$(($rosport+1))
 export ROSPORT=$(($ROSPORT+2))
 sed -i '$d' ~/.bashrc
 echo "export ROSPORT=$ROSPORT" >> ~/.bashrc
 
 
-docker run --gpus all -it --rm --shm-size=64g \
+docker run -d --gpus all -it --rm --shm-size=64g \
 -v /home/bag/experiments/JackalTourGuide:/home/bag/catkin_ws \
 -v /home/bag/raid/Myhal_Simulation/simulated_runs:/home/bag/Myhal_Simulation/simulated_runs \
 -v /home/bag/raid/Myhal_Simulation/annotated_frames:/home/bag/Myhal_Simulation/annotated_frames \
@@ -42,6 +42,6 @@ docker run --gpus all -it --rm --shm-size=64g \
 -e ROS_MASTER_URI=http://obelisk:$rosport \
 -e GAZEBO_MASTER_URI=http://obelisk:$gazport \
 -e ROSPORT=$rosport \
---name "Bag-$ROSPORT" \
+--name "bag-melodic-$ROSPORT" \
 docker_ros_melodic \
 $1
