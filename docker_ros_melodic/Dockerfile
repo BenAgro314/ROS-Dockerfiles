@@ -72,7 +72,7 @@ RUN apt upgrade -y --no-install-recommends
 RUN apt-get install psmisc -y --no-install-recommends
 RUN apt-get install ros-melodic-ros-numpy -y --no-install-recommends
 RUN pip install plyfile scipy
-RUN apt-get install python-tk -y --no-install-recommends
+RUN apt-get install python-tk ipython -y --no-install-recommends
 RUN groupadd -g 1090 myhal_sim
 RUN groupadd -g 1001 raid
 RUN useradd -ms /bin/bash -u 1085 bag
@@ -94,6 +94,8 @@ ENV PATH /usr/local/nvidia/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:${LD_LIBRARY_PATH}
 
 COPY entrypoint.sh /home/entrypoint.sh
+RUN ipython profile create
+COPY startup.py /home/bag/.ipython/profile_default/startup/startup.py
 ENTRYPOINT ["/home/entrypoint.sh"]
 CMD ["bash"]
 
