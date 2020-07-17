@@ -54,6 +54,7 @@ RUN useradd -ms /bin/bash -u 1085 bag
 RUN adduser bag myhal_sim
 RUN adduser bag raid
 RUN apt-get install python3-tk -y --no-install-recommends
+RUN pip3 install ipython
 WORKDIR /home/bag/catkin_ws
 
 
