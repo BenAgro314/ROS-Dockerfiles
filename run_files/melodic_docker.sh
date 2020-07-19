@@ -8,14 +8,14 @@ echo ""
 
 rosport=$ROSPORT
 
-detach=true
+detach=false
 command=""
 
-while getopts d:c: option
+while getopts dc: option
 do
 case "${option}"
 in
-d) detach=${OPTARG};; 
+d) detach=true;; 
 c) command=${OPTARG};;
 esac
 done

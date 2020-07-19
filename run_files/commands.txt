@@ -1,0 +1,7 @@
+Basic commands:
+
+No filtering: ./melodic_docker.sh -d -c "./master.sh -t <tour_name> -m"
+Gt filtering: ./melodic_docker.sh -d -c "./master.sh -t <tour_name> -fg -m" 
+Online predictions: ./classification_test.sh -c "./master.sh -t <tour_name> -f -m"
+
+Note: for all of the above, the -m flag enables gmapping, while without the m flag, AMCL will be used 
