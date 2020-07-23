@@ -73,7 +73,9 @@ RUN apt-get install psmisc -y --no-install-recommends
 RUN apt-get install ros-melodic-ros-numpy -y --no-install-recommends
 RUN pip install plyfile scipy jupyterlab
 RUN apt-get install python-tk ipython -y --no-install-recommends
-RUN pip install psutil
+RUN pip install psutil 
+RUN pip install tabulate 
+RUN apt-get install ffmpeg -y --no-install-recommends
 RUN groupadd -g 1090 myhal_sim
 RUN groupadd -g 1001 raid
 RUN useradd -ms /bin/bash -u 1085 bag
