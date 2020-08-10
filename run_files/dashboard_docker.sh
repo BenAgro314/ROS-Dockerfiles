@@ -9,14 +9,19 @@ echo ""
 rosport=$ROSPORT
 
 if [[ -z "$ROSPORT" ]]; then
-    echo "WARNING: didn't provide ROSPORT, setting it to random value, this could result in conflicts." 1>&2
-    export ROSPORT=$(($RANDOM%30000+1101))
+    echo "WARNING: didn't provide ROSPORT, setting it to 1100"
+    export ROSPORT=1100
+fi
+
+last_line=$(tail -1 ~/.bashrc)
+s=${last_line:0:14}
+if [[ "$s" == "export ROSPORT" ]]; then
+    sed -i '$d' ~/.bashrc
 fi
 
 echo "ROSPORT=$rosport"
 gazport=$(($rosport+1))
 export ROSPORT=$(($ROSPORT+2))
-sed -i '$d' ~/.bashrc
 echo "export ROSPORT=$ROSPORT" >> ~/.bashrc
 
 docker run --gpus all -it --rm --shm-size=64g \
