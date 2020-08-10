@@ -76,6 +76,9 @@ RUN apt-get install python-tk ipython -y --no-install-recommends
 RUN pip install psutil 
 RUN pip install tabulate 
 RUN apt-get install ffmpeg -y --no-install-recommends
+RUN apt-get install xdg-utils -y --no-install-recommends
+RUN apt-get install vim-gtk -y --no-install-recommends
+RUN pip install moviepy
 RUN groupadd -g 1090 myhal_sim
 RUN groupadd -g 1001 raid
 RUN useradd -ms /bin/bash -u 1085 bag

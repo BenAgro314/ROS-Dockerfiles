@@ -4,8 +4,6 @@ echo ""
 echo "Running ros-melodic docker. Remember you can set ROSPORT to a custom value"
 echo ""
 
-
-
 rosport=$ROSPORT
 
 detach=false
@@ -42,6 +40,8 @@ if [ "$detach" = true ] ; then
     -v /home/bag/raid/Myhal_Simulation:/home/bag/Myhal_Simulation \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME/.Xauthority:/home/bag/.Xauthority \
+    -v /home/bag/.vimrc:/home/bag/.vimrc \
+    -v /home/bag/.vim/:/home/bag/.vim \
     --net=host \
     -e XAUTHORITY=/home/bag/.Xauthority \
     -e DISPLAY=$DISPLAY \
@@ -50,13 +50,15 @@ if [ "$detach" = true ] ; then
     -e ROSPORT=$rosport \
     --name "bag-melodic-$ROSPORT" \
     docker_ros_melodic \
-    $command
+    $command 
 else
     docker run --gpus all -it --rm --shm-size=64g \
     -v /home/bag/experiments/JackalTourGuide:/home/bag/catkin_ws \
     -v /home/bag/raid/Myhal_Simulation:/home/bag/Myhal_Simulation \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME/.Xauthority:/home/bag/.Xauthority \
+    -v /home/bag/.vimrc:/home/bag/.vimrc \
+    -v /home/bag/.vim/:/home/bag/.vim \
     --net=host \
     -e XAUTHORITY=/home/bag/.Xauthority \
     -e DISPLAY=$DISPLAY \
@@ -65,7 +67,6 @@ else
     -e ROSPORT=$rosport \
     --name "bag-melodic-$ROSPORT" \
     docker_ros_melodic \
-    $command
+    $command 
 fi
 
-source ~/.bashrc
